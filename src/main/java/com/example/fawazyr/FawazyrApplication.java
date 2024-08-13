@@ -8,5 +8,6 @@ public class FawazyrApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FawazyrApplication.class, args);
+
 	}
 }
