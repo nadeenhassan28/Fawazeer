@@ -9,10 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>fawazyr</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>fawazyr</name>
-	<description>fawazyr orange project</description>
 	<url/>
 	<licenses>
 		<license/>
