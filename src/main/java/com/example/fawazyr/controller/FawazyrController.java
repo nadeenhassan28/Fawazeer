@@ -4,6 +4,8 @@ import com.example.fawazyr.data.*;
 import com.example.fawazyr.service.WinnerService;
 import com.example.fawazyr.service.GiftsService;
 import com.example.fawazyr.service.PrizeHistoryService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +38,11 @@ public class FawazyrController {
     @GetMapping("/prizeHistories")
     public List<PrizeHistory> getAllPrizeHistories() {
          return prizeHistoryService.getAllPrizeHistories();
+    }
+
+    @GetMapping("/redeem-prize")
+    public ResponseEntity<String> redeemPrize(@RequestParam("code") int code) {
+        return giftsService.redeemPrize(code);
     }
 
 }
