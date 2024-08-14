@@ -52,4 +52,9 @@ public class FawazyrController {
         }
     }
 
+    @GetMapping("/redeem-prize") // Nadeen's
+    public ResponseEntity<String> redeemPrize(@RequestParam("code") int code) {
+        return giftsService.redeemPrize(code);
+    }
+
 }
