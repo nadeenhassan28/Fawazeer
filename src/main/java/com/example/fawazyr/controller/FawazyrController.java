@@ -40,6 +40,17 @@ public class FawazyrController {
 //         return prizeHistoryService.getAllPrizeHistories();
 //    }
 
+    @GetMapping("/redeem")
+    public ResponseEntity<String> redeemPrize(@RequestParam("giftId") Integer giftId) {
+        int resultCode = prizeHistoryService.checkGiftCapacity(giftId);
+
+        if (resultCode == 2) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Prize reached max capacity");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body("Prize redeemed successfully");
+        }
+    }
+
     @GetMapping("/redeem-prize")
     public ResponseEntity<String> redeemPrize(@RequestParam("msisdn") String msisdn, @RequestParam("giftId") Integer giftId) {
         Winner newWinner = new Winner(msisdn, LocalDate.now(), giftId);
@@ -52,9 +63,9 @@ public class FawazyrController {
         }
     }
 
-    @GetMapping("/redeem-prize") // Nadeen's
-    public ResponseEntity<String> redeemPrize(@RequestParam("code") int code) {
-        return giftsService.redeemPrize(code);
-    }
+//    @GetMapping("/redeem-prize") // Nadeen's
+//    public ResponseEntity<String> redeemPrize(@RequestParam("code") int code) {
+//        return giftsService.redeemPrize(code);
+//    }
 
 }
