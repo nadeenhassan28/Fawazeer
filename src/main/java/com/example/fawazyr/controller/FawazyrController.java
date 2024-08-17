@@ -16,12 +16,12 @@ import java.util.List;
 public class FawazyrController {
 
     private final WinnerService winnerService;
-    private final GiftsService giftsService;
+//    private final GiftsService giftsService;
     private final PrizeHistoryService prizeHistoryService;
 
     public FawazyrController(WinnerService winnerService, GiftsService giftsService, PrizeHistoryService prizeHistoryService) {
         this.winnerService = winnerService;
-        this.giftsService = giftsService;
+//        this.giftsService = giftsService;
         this.prizeHistoryService = prizeHistoryService;
     }
 
@@ -58,9 +58,19 @@ public class FawazyrController {
 
         if (resultCode == 1) {
             return ResponseEntity.status(400).body("Not eligible to redeem the prize today.");
-        } else {
-            return ResponseEntity.ok("Prize redeemed successfully.");
         }
+
+        resultCode = prizeHistoryService.checkGiftCapacityAndRedeem(newWinner);
+
+        if (resultCode == 2){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Prize reached mac capacity");
+        } else if (resultCode == 3) {
+            return ResponseEntity.ok("Prize 1 redeemed successfully");
+        } else if (resultCode == 4){
+            return ResponseEntity.ok("Prize 2 redeemed successfully");
+        }
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
     }
 
 //    @GetMapping("/redeem-prize") // Nadeen's

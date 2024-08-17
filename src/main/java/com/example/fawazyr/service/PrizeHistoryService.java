@@ -3,8 +3,10 @@ package com.example.fawazyr.service;
 import com.example.fawazyr.data.GiftsRepository;
 import com.example.fawazyr.data.PrizeHistory;
 import com.example.fawazyr.data.PrizeHistoryRepository;
+import com.example.fawazyr.data.Winner;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -12,10 +14,12 @@ public class PrizeHistoryService {
 
     private final PrizeHistoryRepository prizeHistoryRepository;
     private final GiftsRepository giftsRepository;
+    private final WinnerService winnerService;
 
-    public PrizeHistoryService(PrizeHistoryRepository prizeHistoryRepository, GiftsRepository giftsRepository) {
+    public PrizeHistoryService(PrizeHistoryRepository prizeHistoryRepository, GiftsRepository giftsRepository, WinnerService winnerService) {
         this.prizeHistoryRepository = prizeHistoryRepository;
         this.giftsRepository = giftsRepository;
+        this.winnerService = winnerService;
     }
 
     public List<PrizeHistory> getAllPrizeHistories() {
@@ -53,6 +57,33 @@ public class PrizeHistoryService {
             // Handle any other giftId values, assuming they should succeed
             return 3; // Default case for other giftIds
         }
+    }
+
+    public int checkGiftCapacityAndRedeem(Winner winner){
+        Integer giftId = winner.getGiftId();
+        Long currentCapacity = prizeHistoryRepository.countByGiftId(giftId);
+
+        //check and determine range
+        if (currentCapacity >= 150){
+            return 2; //prize reached max capacity
+        }
+
+        // determine gift according to capacity
+        if (currentCapacity < 50){
+            giftId = 1;
+            winner.setGiftId(giftId);
+            prizeHistoryRepository.save(new PrizeHistory(currentCapacity.intValue()+1, winner.getMsisdn(), giftId, LocalDate.now()));
+            winnerService.saveWinner(winner);
+            return 3; // prize 1
+        } else if (currentCapacity < 150) {
+            giftId = 2;
+            winner.setGiftId(giftId);
+            prizeHistoryRepository.save(new PrizeHistory(currentCapacity.intValue()+1, winner.getMsisdn(), giftId, LocalDate.now()));
+            winnerService.saveWinner(winner);
+            return 4; //prize 2 granted
+        }
+
+        return 2;
     }
 
 

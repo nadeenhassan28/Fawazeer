@@ -26,15 +26,13 @@ public class WinnerService {
 
             if (lastDate.equals(LocalDate.now())) {
                 return 1; // code 1
-            } else {
-                // insert new entry with the current date
-                winnerRepository.save(newWinner);
-                return 0; // eligible but need to check the capacity first
             }
-        } else {
-            // insert new entry
-            winnerRepository.save(newWinner);
-            return 0; // eligible but need to check the capacity first
         }
+        // if eligible the capacity will be checked first
+        return 0;
+    }
+
+    public void saveWinner(Winner winner){
+        winnerRepository.save(winner);
     }
 }
