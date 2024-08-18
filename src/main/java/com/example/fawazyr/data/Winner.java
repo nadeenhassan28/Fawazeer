@@ -12,6 +12,10 @@ public class Winner {
     private Integer giftId;
 
     public Winner(String msisdn, LocalDate now, Integer giftId) {
+
+        this.msisdn = msisdn;
+        this.date = now;
+        this.giftId = giftId;
     }
 
     public Winner(Long id, String msisdn, LocalDate date, Integer giftId) {

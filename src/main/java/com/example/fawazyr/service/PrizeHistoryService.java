@@ -65,15 +65,15 @@ public class PrizeHistoryService {
 
         // Nadeen's
         // Get the  quantity from the gifts table
-        Integer quantity = giftsRepository.findQuantityByGiftId(giftId);
-        if (quantity == null) {
-            throw new IllegalArgumentException("Gift ID " + giftId + " does not exist.");
-        }
-
-        //check and determine range
-        if (currentCapacity >= quantity){
-            return 2; //prize reached max capacity
-        }
+//        Integer quantity = giftsRepository.findQuantityByGiftId(giftId);
+//        if (quantity == null) {
+//            throw new IllegalArgumentException("Gift ID " + giftId + " does not exist.");
+//        }
+//
+//        //check and determine range
+//        if (currentCapacity >= quantity){
+//            return 2; //prize reached max capacity
+//        }
 
         // determine gift according to capacity
         if (currentCapacity < 50){
