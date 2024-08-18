@@ -18,7 +18,7 @@ public class WinnerService {
         this.winnerRepository = winnerRepository;
     }
 
-    public int checkEligibilityAndRedeem(Winner newWinner) {
+    public int checkEligibilityOfWinner(Winner newWinner) {
         Optional<Winner> existingWinner = winnerRepository.findLatestByMsisdn(newWinner.getMsisdn());
 
         if (existingWinner.isPresent()) {

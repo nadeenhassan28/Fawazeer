@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/fawazyr")
@@ -54,7 +53,7 @@ public class FawazyrController {
     @GetMapping("/redeem-prize")
     public ResponseEntity<String> redeemPrize(@RequestParam("msisdn") String msisdn, @RequestParam("giftId") Integer giftId) {
         Winner newWinner = new Winner(msisdn, LocalDate.now(), giftId);
-        int resultCode = winnerService.checkEligibilityAndRedeem(newWinner);
+        int resultCode = winnerService.checkEligibilityOfWinner(newWinner);
 
         if (resultCode == 1) {
             return ResponseEntity.status(400).body("Not eligible to redeem the prize today.");

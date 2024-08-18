@@ -51,7 +51,7 @@ public class PrizeHistoryService {
                 // If giftId is 2 and capacity is reached, return code 2
                 return 2; // Prize reached max capacity
             } else {
-                return 3; // Prize redeemed successfully
+                return 3; // Prize redeemed successfully (code 4)
             }
         } else {
             // Handle any other giftId values, assuming they should succeed
@@ -63,8 +63,15 @@ public class PrizeHistoryService {
         Integer giftId = winner.getGiftId();
         Long currentCapacity = prizeHistoryRepository.countByGiftId(giftId);
 
+        // Nadeen's
+        // Get the  quantity from the gifts table
+        Integer quantity = giftsRepository.findQuantityByGiftId(giftId);
+        if (quantity == null) {
+            throw new IllegalArgumentException("Gift ID " + giftId + " does not exist.");
+        }
+
         //check and determine range
-        if (currentCapacity >= 150){
+        if (currentCapacity >= quantity){
             return 2; //prize reached max capacity
         }
 

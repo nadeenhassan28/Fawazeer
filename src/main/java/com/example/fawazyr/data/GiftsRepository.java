@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GiftsRepository extends CrudRepository<Gifts, Integer> {
     //custom query
-    @Query("SELECT quantity FROM gifts WHERE g.giftId = :giftId")
+    @Query("SELECT quantity FROM gifts g WHERE g.gift_id = :giftId")
     Integer findQuantityByGiftId(@Param("giftId") Integer giftId);
 }
