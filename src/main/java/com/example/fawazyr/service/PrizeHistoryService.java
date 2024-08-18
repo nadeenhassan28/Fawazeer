@@ -51,7 +51,7 @@ public class PrizeHistoryService {
                 // If giftId is 2 and capacity is reached, return code 2
                 return 2; // Prize reached max capacity
             } else {
-                return 3; // Prize redeemed successfully (code 4)
+                return 4; // Prize redeemed successfully (code 4)
             }
         } else {
             // Handle any other giftId values, assuming they should succeed
@@ -76,12 +76,13 @@ public class PrizeHistoryService {
 //        }
 
         // determine gift according to capacity
-        if (currentCapacity < 50){
+        if (currentCapacity < 2){
             giftId = 1;
             winner.setGiftId(giftId);
             prizeHistoryRepository.save(new PrizeHistory(currentCapacity.intValue()+1, winner.getMsisdn(), giftId, LocalDate.now()));
             winnerService.saveWinner(winner);
-            return 3; // prize 1
+            return 3
+                    ; // prize 1
         } else if (currentCapacity < 150) {
             giftId = 2;
             winner.setGiftId(giftId);

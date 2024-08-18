@@ -8,4 +8,5 @@ public interface PrizeHistoryRepository extends CrudRepository<PrizeHistory, Str
     // custom query
     @Query("SELECT capacity FROM prizehistory  WHERE gift_id = :giftId")
     Long countByGiftId(@Param("giftId") Integer giftId);
+
 }
