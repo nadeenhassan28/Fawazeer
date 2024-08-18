@@ -10,6 +10,11 @@ import java.util.Optional;
 @Repository
 public interface WinnerRepository extends CrudRepository<Winner, String> {
 
-    @Query("SELECT * FROM winner WHERE msisdn = :msisdn ORDER BY date DESC LIMIT 1")
+    @Query("\n" +
+            "SELECT * \n" +
+            "FROM winner \n" +
+            "WHERE msisdn = :msisdn \n" +
+            "ORDER BY date DESC \n" +
+            "LIMIT 1;")
     Optional<Winner> findLatestByMsisdn(String msisdn);
 }

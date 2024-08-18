@@ -33,6 +33,6 @@ public class WinnerService {
     }
 
     public void saveWinner(Winner winner){
-        winnerRepository.save(winner);
+        winnerRepository.save(new Winner(null, winner.getMsisdn(), winner.getDate(),winner.getGiftId()));
     }
 }
