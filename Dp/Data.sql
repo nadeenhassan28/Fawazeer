@@ -1,20 +1,16 @@
-CREATE TABLE winner
-(
-    id     SERIAL PRIMARY KEY,
-    msisdn VARCHAR(20),
-    date   DATE
-);
+ALTER TABLE winner RENAME COLUMN idW to idW;
 
-CREATE TABLE gifts(
-                      gift_id INT PRIMARY KEY ,
-                      quantity INT
-);
 
-CREATE TABLE prizeHistory(
-                             id SERIAL PRIMARY KEY,
-                             capacity INT ,
-                             msisdn VARCHAR(15) ,
-                             gift_id INT ,
-                             date DATE
-
-);
+-- CREATE TABLE gifts(
+--                       gift_id INT PRIMARY KEY ,
+--                       quantity INT
+-- );
+--
+-- CREATE TABLE prizeHistory(
+--                              id SERIAL PRIMARY KEY,
+--                              capacity INT ,
+--                              msisdn VARCHAR(15) ,
+--                              gift_id INT ,
+--                              date DATE
+--
+-- );
