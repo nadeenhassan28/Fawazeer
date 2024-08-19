@@ -35,7 +35,7 @@ public class PrizeHistoryService {
         }
 
         // Get the capacity from ph table
-        Long currentCapacity = prizeHistoryRepository.countByGiftId(giftId);
+        int currentCapacity = prizeHistoryRepository.countByGiftId(giftId);
 
         // Logic based on the giftId and capacity
         if (giftId == 1) {
@@ -61,7 +61,7 @@ public class PrizeHistoryService {
 
     public int checkGiftCapacityAndRedeem(Winner winner){
         Integer giftId = winner.getGiftId();
-        Long currentCapacity = prizeHistoryRepository.countByGiftId(giftId);
+        int currentCapacity = prizeHistoryRepository.countByGiftId(giftId);
 
         // Nadeen's
         // Get the  quantity from the gifts table
@@ -79,14 +79,14 @@ public class PrizeHistoryService {
         if (currentCapacity < 2){
             giftId = 1;
             winner.setGiftId(giftId);
-            prizeHistoryRepository.save(new PrizeHistory(currentCapacity.intValue()+1, winner.getMsisdn(), giftId, LocalDate.now()));
+            prizeHistoryRepository.save(new PrizeHistory(currentCapacity +1, winner.getMsisdn(), giftId, LocalDate.now()));
             winnerService.saveWinner(winner);
             return 3
                     ; // prize 1
         } else if (currentCapacity < 150) {
             giftId = 2;
             winner.setGiftId(giftId);
-            prizeHistoryRepository.save(new PrizeHistory(currentCapacity.intValue()+1, winner.getMsisdn(), giftId, LocalDate.now()));
+            prizeHistoryRepository.save(new PrizeHistory(currentCapacity+1, winner.getMsisdn(), giftId, LocalDate.now()));
             winnerService.saveWinner(winner);
             return 4; //prize 2 granted
         }
