@@ -19,10 +19,10 @@ public class WinnerService {
     }
 
     public int checkEligibilityOfWinner(Winner newWinner) {
-        Optional<Winner> existingWinner = winnerRepository.findLatestByMsisdn(newWinner.getMsisdn());
+        Optional<Winner> existingWinner = winnerRepository.findLatestByMsisdn(newWinner.msisdn());
 
         if (existingWinner.isPresent()) {
-            LocalDate lastDate = existingWinner.get().getDate();
+            LocalDate lastDate = existingWinner.get().date();
 
             if (lastDate.equals(LocalDate.now())) {
                 return 1; // code 1
@@ -33,6 +33,6 @@ public class WinnerService {
     }
 
     public void saveWinner(Winner winner){
-        winnerRepository.save(new Winner(null, winner.getMsisdn(), winner.getDate(),winner.getGiftId()));
+        winnerRepository.save(new Winner(null, winner.msisdn(), winner.date(),winner.giftId()));
     }
 }

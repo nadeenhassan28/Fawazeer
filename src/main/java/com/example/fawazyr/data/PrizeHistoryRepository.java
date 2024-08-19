@@ -8,14 +8,15 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Optional;
 
 public interface PrizeHistoryRepository extends CrudRepository<PrizeHistory, String> {
     // custom query
     @Modifying
-    @Query("UPDATE prizeHistory SET capacity = capacity + 1 ")
-    int incrementCapacity();
-    @Query("SELECT capacity FROM prizehistory  WHERE gift_id = :giftId")
-    int countByGiftId(@Param("giftId") Integer giftId);
+    @Query("UPDATE prizeHistory SET capacity = capacity + 1 WHERE msisdn= :msisdn")
+    int incrementCapacity(@Param("msisdn") String msisdn);
+    @Query("SELECT capacity FROM prizehistory  WHERE gift_id = :giftId LIMIT 1")
+    Optional<Number> countByGiftId(@Param("giftId") Integer giftId);
 
 
     @Query(value = "SELECT date FROM prizeHistory ORDER BY date DESC LIMIT 1")

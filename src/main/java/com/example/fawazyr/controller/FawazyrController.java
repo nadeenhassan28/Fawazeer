@@ -54,14 +54,14 @@ public class FawazyrController {
 
     @GetMapping("/redeem-prize")
     public ResponseEntity<String> redeemPrize(@RequestParam("msisdn") String msisdn, @RequestParam("giftId") Integer giftId) {
-        Winner newWinner = new Winner(msisdn, LocalDate.now(), giftId);
+        Winner newWinner = new Winner(null,msisdn, LocalDate.now(), giftId);
         int resultCode = winnerService.checkEligibilityOfWinner(newWinner);
 
         if (resultCode == 1) {
             return ResponseEntity.status(400).body("Not eligible to redeem the prize today.");
         }
 
-        resultCode = prizeHistoryService.checkGiftCapacityAndRedeem(newWinner);
+        resultCode = prizeHistoryService.checkGiftCapacityAndRedeem(msisdn, giftId);
 
         if (resultCode == 2){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Prize reached mac capacity");
@@ -73,9 +73,7 @@ public class FawazyrController {
         }
         winnerService.saveWinner(newWinner);
 
-        int capacityCount= prizeHistoryRepository.incrementCapacity();
-        PrizeHistory newprizeHistory =  new PrizeHistory(capacityCount,msisdn,giftId,LocalDate.now());
-        prizeHistoryRepository.save(newprizeHistory);
+
 
 
 
