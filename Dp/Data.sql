@@ -1,4 +1,3 @@
-ALTER TABLE winner RENAME COLUMN idW to idW;
 
 
 -- CREATE TABLE gifts(

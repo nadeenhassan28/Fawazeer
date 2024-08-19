@@ -79,7 +79,7 @@ public class PrizeHistoryService {
         if (currentCapacity < 2){
             giftId = 1;
             winner.setGiftId(giftId);
-            prizeHistoryRepository.save(new PrizeHistory(currentCapacity +1, winner.getMsisdn(), giftId, LocalDate.now()));
+            prizeHistoryRepository.save(new PrizeHistory(currentCapacity+1, winner.getMsisdn(), giftId, LocalDate.now()));
             winnerService.saveWinner(winner);
             return 3
                     ; // prize 1

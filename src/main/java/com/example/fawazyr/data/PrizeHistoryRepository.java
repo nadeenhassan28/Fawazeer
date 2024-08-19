@@ -6,9 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface PrizeHistoryRepository extends CrudRepository<PrizeHistory, String> {
     // custom query
-    @Query("SELECT capacity FROM prizeHistory  WHERE gift_id = :giftId LIMIT 1")
-    int countByGiftId(Integer giftId);
-
-
+    @Query("SELECT capacity FROM prizehistory  WHERE gift_id = :giftId")
+    Long countByGiftId(@Param("giftId") Integer giftId);
 
 }
