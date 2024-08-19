@@ -7,6 +7,7 @@ import com.example.fawazyr.data.Winner;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -92,6 +93,13 @@ public class PrizeHistoryService {
         }
 
         return 2;
+    }
+
+    public void deleteContentPrizeHistory() {
+        LocalDate del = prizeHistoryRepository.latestEntryPrizeHistory();
+        if (LocalDate.now().isAfter(del)) {
+            prizeHistoryRepository.deletePrizeHistoryQuery();
+        }
     }
 
 
