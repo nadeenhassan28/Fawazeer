@@ -75,7 +75,7 @@ public class FawazyrController {
 
         int capacityCount= prizeHistoryRepository.incrementCapacity();
         PrizeHistory newprizeHistory =  new PrizeHistory(capacityCount,msisdn,giftId,LocalDate.now());
-
+        prizeHistoryRepository.save(newprizeHistory);
 
 
 
