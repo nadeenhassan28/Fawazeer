@@ -17,11 +17,13 @@ public class FawazyrController {
     private final WinnerService winnerService;
 //    private final GiftsService giftsService;
     private final PrizeHistoryService prizeHistoryService;
+    private final PrizeHistoryRepository prizeHistoryRepository;
 
-    public FawazyrController(WinnerService winnerService, GiftsService giftsService, PrizeHistoryService prizeHistoryService) {
+    public FawazyrController(WinnerService winnerService, GiftsService giftsService, PrizeHistoryService prizeHistoryService, PrizeHistoryRepository prizeHistoryRepository) {
         this.winnerService = winnerService;
 //        this.giftsService = giftsService;
         this.prizeHistoryService = prizeHistoryService;
+        this.prizeHistoryRepository = prizeHistoryRepository;
     }
 
 //    @GetMapping("/winners")
@@ -67,7 +69,15 @@ public class FawazyrController {
             return ResponseEntity.ok("Prize 1 redeemed successfully");
         } else if (resultCode == 4){
             return ResponseEntity.ok("Prize 2 redeemed successfully");
+
         }
+        winnerService.saveWinner(newWinner);
+
+        int capacityCount= prizeHistoryRepository.incrementCapacity();
+        PrizeHistory newprizeHistory =  new PrizeHistory(capacityCount,msisdn,giftId,LocalDate.now());
+
+
+
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
     }

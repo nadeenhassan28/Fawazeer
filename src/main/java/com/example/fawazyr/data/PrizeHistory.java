@@ -27,6 +27,17 @@ public class PrizeHistory {
         this.date = date;
     }
 
+    public PrizeHistory(String msisdn, Integer giftId, LocalDate now) {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Integer getCapacity() {
         return capacity;
     }

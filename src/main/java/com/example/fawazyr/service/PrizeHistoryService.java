@@ -94,6 +94,11 @@ public class PrizeHistoryService {
         return 2;
     }
 
+    public void savePrizeHistory(PrizeHistory prizeHistory) {
+        prizeHistoryRepository.save(prizeHistory);
+        prizeHistoryRepository.incrementCapacity();
+    }
+
 
     // Add methods
 }
